@@ -16,14 +16,14 @@ def make_data(): #초기 그래프
     x = np.linspace(0,780,781).reshape(-1,1)
     ##수면 만족도 예상 그래프
     y=1/44*x*((0<x)&(x<220))+ (-1/200*(x-240)*(x-240)+7)*((220<=x)&(260>x))+ (4/625*(x-285)*(x-285)+1)*((x>=260)&(x<310))+ (-3/400*(x-330)*(x-330) + 8)*((x>=310)&(x<350))+ (2/625*(x-375)*(x-375) + 3)*((x>=350)&(x<400))+ (-1/100*(x-420)*(x-420) + 9)*((x>=400)&(x<440))+(1/625*(x-465)*(x-465) + 4 )*((x>=440)&(x<490))+(-1/225*(x-520)*(x-520) + 9)*((x>=490)&(x<550))+(7+x*1/10000000000000)*((x>=550))
-    
+
    ##noise(변수)설정
     noise = np.random.uniform(-abs(noise), abs(noise), size=y.shape)
     yy = y + noise
-  
-    
+
+
     return x, yy
-    
+
 
 def poly(x, degree=2):
     model = PolynomialFeatures(degree=degree, include_bias=True)
@@ -41,7 +41,7 @@ def LR(poly_x,x,y,range1_poly,range2_poly,range3_poly,range4_poly,range5_poly,ra
     model7 = LinearRegression()
     model8 = LinearRegression()
     model9 = LinearRegression()
-    
+
 
     model.fit(poly_x,y)
     model2.fit(range1_poly,y[220:259])
@@ -52,13 +52,13 @@ def LR(poly_x,x,y,range1_poly,range2_poly,range3_poly,range4_poly,range5_poly,ra
     model7.fit(range6_poly,y[440:489])
     model8.fit(range7_poly,y[490:549])
     model9.fit(range8_poly,y[550:780])
-    
+
 
     print("w1: ", model.coef_[0][0])
     print("w2: ", model.coef_[0][1])
     print("b: ",  model.intercept_[0])
-    
-    
+
+
     result = model.predict(poly_x)
     result2 = model2.predict(range1_poly)
     result3 = model3.predict(range2_poly)
@@ -68,7 +68,7 @@ def LR(poly_x,x,y,range1_poly,range2_poly,range3_poly,range4_poly,range5_poly,ra
     result7 = model7.predict(range6_poly)
     result8 = model8.predict(range7_poly)
     result9 = model9.predict(range8_poly)
-    
+
 
     y[220:259] = result2
     y[260:309]=result3
@@ -80,7 +80,6 @@ def LR(poly_x,x,y,range1_poly,range2_poly,range3_poly,range4_poly,range5_poly,ra
     y[550:780]=result9
     '''  그래프 테스트 코드
     plt.figure(figsize=(10, 7))
-
     
    
     plt.plot(x,y)
@@ -138,5 +137,6 @@ pre = x[answerTime-29:answerTime+30]
 pre, pre_poly = poly(pre)
 inputLR(answerTime,pre_poly)
 
+S_rec_max = df['y'].argmax()
 
 print(df[410:460])
