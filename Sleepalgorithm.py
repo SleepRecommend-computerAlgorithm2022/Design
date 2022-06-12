@@ -7,6 +7,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import r2_score
 import math
+import Best_sleep
 
 def make_data(): #초기 그래프
     noise=1
