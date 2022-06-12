@@ -1,6 +1,5 @@
 from tkinter import * 
 import tkinter as tk
-import tkinter.font
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import Sleepalgorithm
@@ -34,11 +33,11 @@ class Main(f):
         f.__init__(self, master)
         #폰트
         global D_font, T_font, S_font, I_font,BT_font
-        D_font = tk.font.Font(family="나눔고딕", size=20)
-        T_font = tk.font.Font(family="나눔고딕", size=30, weight="bold")
-        S_font = tk.font.Font(family="나눔고딕", size=15)
-        I_font = tk.font.Font(family="나눔고딕", size=17)
-        BT_font = tk.font.Font(family="나눔고딕",size=40,weight="bold")
+        D_font = ("나눔고딕", 20)
+        T_font = ("나눔고딕", 30, "bold")
+        S_font = ("나눔고딕", 15)
+        I_font = ("나눔고딕", 17)
+        BT_font = ("나눔고딕", 40, "bold")
         #타이틀
         tk.Label(self, text="최적의 수면시간 찾기", pady=150, font=T_font).pack()
         #수면 데이터 입력하기 버튼
@@ -133,7 +132,7 @@ class S_final(f):
         f.__init__(self, master)
         print("d",sleepH.get(),sleepM.get())
         #blank
-        tk.Label(self, text="").grid(column = 0, row = 0,padx=100,pady=30)
+        tk.Label(self, text="").grid(column = 0, row = 0,padx=100,pady=3)
         tk.Label(self, text="").grid(column = 0, row = 2, pady=1)
         #그래프
         df = Sleepalgorithm.df
@@ -142,18 +141,18 @@ class S_final(f):
         line2 = FigureCanvasTkAgg(figure2, self)
         line2.get_tk_widget().grid(column = 1, row = 1, columnspan=3)
         df=df[['x','y']].groupby('x').sum()
-        df.plot(kind = 'line', legend=True, ax = ax2, color='r', marker='o', fontsize = 10)
+        df.plot(kind = 'line', legend=True, ax = ax2, color='dodgerblue', marker=',', fontsize = 10)
         ax2.set_title('Sleep Time')
         #입력한 기상 시간 출력
         tk.Label(self, text="입력한 기상 시간은", font=D_font).grid(column=0, row=3,columnspan=3)
-        tk.Label(self, text=f"{sleepH.get()}시 {sleepM.get()}분", font=T_font).grid(column=1,row=3,sticky="e")
-        tk.Label(self, text="이고", font=D_font).grid(column=2,row=3,sticky="w")
+        tk.Label(self, text=f"{sleepH.get()}시 {sleepM.get()}분", font=T_font).grid(column=2,row=3,sticky="e")
+        tk.Label(self, text="이고", font=D_font).grid(column=3,row=3,sticky="w")
         #최적의 수면 시작 시간 출력
-        tk.Label(self, text="최적의 수면 시작 시간은", font=D_font).grid(column=1, row=4,ipadx=30)
-        tk.Label(self, text="00시 57분 ",font=BT_font).grid(column=1,row=5,sticky="w")
-        tk.Label(self, text="입니다.", font=D_font).grid(column=1, row=5,sticky="e")
+        tk.Label(self, text="최적의 수면 시작 시간은", font=D_font).grid(column=2, row=4,ipadx=30)
+        tk.Label(self, text="00시 57분 ",font=BT_font).grid(column=2,row=5,sticky="w")
+        tk.Label(self, text="입니다.", font=D_font).grid(column=2, row=5,sticky="e")
         #확인 버튼
-        tk.Button(self, text="확인", font=D_font, width=7,command=lambda: master.p_switch_frame(Main)).grid(column = 1, row = 6,pady=20)
+        tk.Button(self, text="확인", font=D_font, width=7,command=lambda: master.p_switch_frame(Main)).grid(column = 2, row = 6,pady=20)
 
 if __name__ == "__main__":
     win = tool()
