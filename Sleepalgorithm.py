@@ -52,7 +52,8 @@ def LR(poly_x,x,y,a1):
     plt.scatter(x,y)
     plt.suptitle("LR function", size=24)
     plt.legend()
-    plt.show()
+    #그래프 보여주는 부분 임시 제거
+    #plt.show() 
 
     return result
 
@@ -71,3 +72,14 @@ x,x_poly = poly(x)
 result = LR(x_poly,x,y,answerTime)
 data = np.concatenate((x, y, result), axis=1)
 df = pd.DataFrame(data, columns=['x', 'y', 'predict'])
+
+
+root= tk.tk() #  수정 해야될 부분
+figure2 = plt.figure(figsize=(10,7))
+ax2= figure2.add_subplot(111)
+line2 = FigureCanvasTkAgg(figure2,root) # 수정 해야될 부분
+df=df[['x','y']].groupby('x').sum()
+df.plot(kind = 'line', legend=True, ax = ax2, color='r', marker='o', fontsize = 10)
+ax2.set_title('Sleep Time')
+
+root.mainloop() # 수정 해야될 부분
