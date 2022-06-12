@@ -1,6 +1,7 @@
 from tkinter import * 
 import tkinter as tk
 import tkinter.font
+import Sleepalgorithm
 
 f = tk.Frame
 
@@ -67,6 +68,7 @@ class S_data(f):
         #수면시간
         tk.Label(self, text="  수면시간:", font=D_font).grid(column = 3, row = 5)
         S_hour = tk.Entry(self, borderwidth = 3, font=I_font, width=10)
+        S_hour.focus()
         S_hour.grid(column = 4, row = 5, ipady=10)
         tk.Label(self, text=" 시간 ", font=D_font).grid(column = 5, row = 5)
         S_minute = tk.Entry(self, borderwidth = 3, font=I_font, width=10)
@@ -77,16 +79,22 @@ class S_data(f):
         S_safac = tk.Spinbox(self, borderwidth = 3, from_=1, to=10, font=I_font, width=9)
         S_safac.grid(column = 4, row = 6, ipady=10)
         tk.Label(self, text="*1 ~ 10 사이로 입력해주세요.", fg='red', font=S_font).grid(column = 5, row = 6, columnspan=3)
+        def S_data_save():
+            answerTime=(S_hour.get()*60)+S_minute.get()
+            answerSatisfy=S_safac.get()
+            tk.Label(self, text=f"{S_hour.get()}시간 {S_minute.get()}분 만족도 {S_safac.get()}점 저장되었습니다.", font=D_font).grid(column = 3, row = 9, columnspan=5)
+            S_hour.delete(0, len(S_hour.get()))
+            S_minute.delete(0, len(S_minute.get()))
         #입력 버튼
-        tk.Button(self, text="입력", font=D_font, width=7).grid(column = 3, row = 8, columnspan=2)
+        tk.Button(self, text="입력", font=D_font, width=7, command=S_data_save).grid(column = 3, row = 8, columnspan=2)
         #리셋버튼
         def I_reset():
             S_hour.delete(0, len(S_hour.get()))
             S_minute.delete(0, len(S_minute.get()))
         tk.Button(self, text="Reset", font=D_font, width=7, command=I_reset).grid(column = 5, row = 8, columnspan=2)
 
+
 class S_recommend(f):
-  
     def __init__(self, master):
         f.__init__(self, master)
         global sleepH, sleepM
@@ -103,6 +111,7 @@ class S_recommend(f):
         #기상 시간
         tk.Label(self, text="기상 시간 입력: ", font=D_font).grid(column=9, row=4,pady=100)
         S_hour = tk.Entry(self, borderwidth = 3, font=I_font, width=7,textvariable=sleepH)
+        S_hour.focus()
         S_hour.grid(column = 10, row = 4)
         tk.Label(self, text="시", font=D_font).grid(column = 11, row = 4)
         S_minute = tk.Entry(self, borderwidth = 3, font=I_font, width=7,textvariable=sleepM)
@@ -110,8 +119,7 @@ class S_recommend(f):
         tk.Label(self, text=" 분", font=D_font).grid(column = 13, row = 4)
         #입력 버튼
         tk.Button(self, text="입력", font=D_font, width=7,
-                    command=lambda: master.g_switch_frame(S_final)).grid(column = 9, row = 5,columnspan=3)
-                    
+                    command=lambda: master.g_switch_frame(S_final)).grid(column = 9, row = 5,columnspan=3)          
         #리셋 버튼
         def I_reset():
             S_hour.delete(0, len(S_hour.get()))
