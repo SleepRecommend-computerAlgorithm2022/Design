@@ -1,6 +1,8 @@
 from tkinter import * 
 import tkinter as tk
 import tkinter.font
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 import Sleepalgorithm
 
 f = tk.Frame
@@ -80,8 +82,8 @@ class S_data(f):
         S_safac.grid(column = 4, row = 6, ipady=10)
         tk.Label(self, text="*1 ~ 10 사이로 입력해주세요.", fg='red', font=S_font).grid(column = 5, row = 6, columnspan=3)
         def S_data_save():
-            answerTime=(S_hour.get()*60)+S_minute.get()
-            answerSatisfy=S_safac.get()
+            Sleepalgorithm.answerTime=(S_hour.get()*60)+S_minute.get()
+            Sleepalgorithm.answerSatisfy=S_safac.get()
             tk.Label(self, text=f"{S_hour.get()}시간 {S_minute.get()}분 만족도 {S_safac.get()}점 저장되었습니다.", font=D_font).grid(column = 3, row = 9, columnspan=5)
             S_hour.delete(0, len(S_hour.get()))
             S_minute.delete(0, len(S_minute.get()))
@@ -133,11 +135,11 @@ class S_final(f):
         #blank
         tk.Label(self, text="").grid(column = 0, row = 0,padx=150,pady=100)
         #입력한 기상 시간 출력
-        tk.Label(self, text="입력한 기상 시간은", font=D_font).grid(column=0, row=1,columnspan=3)
+        tk.Label(self, text="입력한 기상 시간은", font=D_font).grid(column=0, row=2,columnspan=3)
         tk.Label(self, text=f"{sleepH.get()}시 {sleepM.get()}분", font=T_font).grid(column=1,row=1,sticky="e")
         tk.Label(self, text="이고", font=D_font).grid(column=2,row=1,sticky="w")
         #최적의 수면 시작 시간 출력
-        tk.Label(self, text="최적의 수면 시작 시간은", font=D_font).grid(column=1, row=2,ipadx=30)
+        tk.Label(self, text="최적의 수면 시작 시간은", font=D_font).grid(column=1, row=3,ipadx=30)
         tk.Label(self, text="00시 57분 ",font=BT_font).grid(column=1,row=3,sticky="w")
         tk.Label(self, text="입니다.", font=D_font).grid(column=1, row=3,sticky="e")
         #확인 버튼
